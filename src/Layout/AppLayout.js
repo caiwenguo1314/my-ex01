@@ -1,111 +1,117 @@
 import React from 'react';
-import { Layout, Menu, Flex, Radio, Input, Progress, Avatar } from 'antd';
+import { Layout, Row, Col, Radio, Input, Avatar, Button } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
-const { Header, Footer, Sider, Content } = Layout;
+
+const { Header, Footer, Content } = Layout;
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/c/font_4798402_1kd47iq67va.js',
+});
+
+const commonAvatarStyle = {
+  width: '40px',
+  height: '40px',
+  fontSize: '24px',
+};
+
+const stepDividerStyle = {
+  flexGrow: 1,
+  height: '1px',
+  background: 'repeating-linear-gradient(90deg, #000, #000 2px, transparent 3px, transparent 5px)',
+  marginTop: '20px',
+};
 
 const AppLayout = () => {
-  const IconFont = createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/c/font_4798402_1kd47iq67va.js', // 替换为你的链接
-  });
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      {/* 主体布局 */}
       <Layout>
-        {/* 头部 */}
-        <Header style={{ background: '#fff', padding: '0 16px', }}>
-          <Flex justify='space-between'>
-            <Flex gap="20px" style={{ fontSize: '18px', fontWeight: 'bold' }}>
-              <div style={{ color: 'red', fontSize: '22px', fontWeight: 'bold' }}>PRUDENTIAL</div>
-              <div>Home</div>
-              <div>Payment</div>
-              <div>Claims</div>
-              <div>Investments</div>
-              <div>Documents</div>
-            </Flex>
-            <div>
+        {/* Header */}
+        <Header style={{ background: '#fff', padding: '0 16px' }}>
+          <Row justify="space-between" align="middle">
+            <Col>
+              <Row gutter={20} style={{ fontSize: '20px',fontWeight: 'bold' }}>
+                <Col style={{ color: 'red', fontSize: '22px' }}>PRUDENTIAL</Col>
+                <Col style={{fontSize: '18px'}}>Home</Col>
+                <Col style={{fontSize: '18px'}}>Payment</Col>
+                <Col style={{fontSize: '18px'}}>Claims</Col>
+                <Col style={{fontSize: '18px'}}>Investments</Col>
+                <Col style={{fontSize: '18px'}}>Documents</Col>
+              </Row>
+            </Col>
+            <Col>
               <IconFont type="icon-shezhi" style={{ fontSize: '20px', color: '#000' }} />
-              <Input style={{ width: '100px', height: '40px', marginTop: '10px', marginLeft: '10px', background: 'rgba(204, 204, 204, 0.5)', color: '#000', paddingRight: '30px', }} placeholder="My Profile" />
-            </div>
-          </Flex>
+              <Input
+                style={{
+                  width: '100px',
+                  height: '40px',
+                  marginLeft: '10px',
+                  background: 'rgba(204, 204, 204, 0.5)',
+                  color: '#000',
+                  paddingRight: '30px',
+                }}
+                placeholder="My Profile"
+              />
+            </Col>
+          </Row>
         </Header>
-        <Flex justify='center' style={{ fontSize: '22px', fontWeight: 'bold', color: '#000', marginTop: '10px', marginBottom: '10px' }}>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Avatar style={{ width: '40px', height: '40px', fontSize: '24px', background: 'red' }} >1</Avatar>
-            <div style={{ fontSize: '14px', }}>Lifeassured</div>
-          </div>
-          <div
-            style={{
-              width: '50px',
-              height: '1px',
-              background: 'repeating-linear-gradient(90deg, #000, #000 2px, transparent 3px, transparent 5px)',
-              marginTop: '20px'
 
-            }}
-          ></div>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Avatar style={{ width: '40px', height: '40px', fontSize: '24px', }} >2</Avatar>
-            <div style={{ fontSize: '14px', }}>Claimdetais</div>
-          </div>
-          <div
-            style={{
-              width: '50px',
-              height: '1px',
-              background: 'repeating-linear-gradient(90deg, #000, #000 2px, transparent 3px, transparent 5px)',
-              marginTop: '20px'
+        {/* Steps */}
+        <Row justify="space-between" align="middle" style={{ margin: '10px 40px', fontSize: '22px', fontWeight: 'bold' }}>
+          {['Lifeassured', 'Claimdetails', 'Payoutdetails', 'Review'].map((text, index) => (
+            <React.Fragment key={index}>
+              <Col style={{ textAlign: 'center' }}>
+                <Avatar style={{ ...commonAvatarStyle, background: index === 0 ? 'red' : '#f0f0f0' }}>{index + 1}</Avatar>
+                <div style={{ fontSize: '14px' }}>{text}</div>
+              </Col>
+              {index < 3 && <div style={stepDividerStyle}></div>}
+            </React.Fragment> 
+          ))}
+        </Row>
 
-            }}
-          ></div>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Avatar style={{ width: '40px', height: '40px', fontSize: '24px', }} >3</Avatar>
-            <div style={{ fontSize: '14px', }}>Payout detalls</div>
-          </div>
-          <div
-            style={{
-              width: '50px',
-              height: '1px',
-              background: 'repeating-linear-gradient(90deg, #000, #000 2px, transparent 3px, transparent 5px)',
-              marginTop: '20px'
+        {/* Content */}
+        <Content style={{ padding: 24 }}>
+          <h1>Select Life Assured</h1>
+          <p>Please select 1 life assured for this medical claim</p>
 
-            }}
-          ></div>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-            <Avatar style={{ width: '40px', height: '40px', fontSize: '24px', }} >4</Avatar>
-            <div style={{ fontSize: '14px', }}>Revtew</div>
-          </div>
-        </Flex>
-
-
-        {/* 内容 */}
-        <Content flex-grow style={{}}>
-          <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-            这里是主要内容
-          </div>
+          {['Jay Wong', 'Lane Lou', 'Stallia Wong Yanghe'].map((name, idx) => (
+            <div
+              key={idx}
+              style={{
+                height: 180,
+                backgroundColor: '#fff',
+                marginTop: 20,
+                borderRadius: 30,
+                padding: '20px',
+                position: 'relative',
+              }}
+            >
+              <Radio style={{ fontSize: 24, fontWeight: 'bold' }}>{name}</Radio>
+              <Row justify="space-between" style={{ position: 'absolute', bottom: 20, width: '90%' }}>
+                {['A', 'B', 'C'].map((suffix, i) => (
+                  <Col key={i} span={8} style={{ fontWeight: 'bold' }}>
+                    <div>Piece of Cake Term Insurance {suffix}</div>
+                    <div>P30000000421</div>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          ))}
         </Content>
 
-        {/* 页脚 */}
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2024 Created by Me
+        {/* Footer */}
+        <Footer style={{ textAlign: 'left' }}>
+          In case of any queries, please contact our customer relations officer at PRUDENTIAL Customerline: 150008/15008
         </Footer>
+
+        {/* Bottom Buttons */}
+        <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px 20px', background: '#fff' }}>
+          <Button style={{ width: 200, marginRight: 20 }} type="ghost" danger>
+            Back
+          </Button>
+          <Button style={{ width: 200 }} type="primary">
+            Continue
+          </Button>
+        </div>
       </Layout>
     </Layout>
   );
