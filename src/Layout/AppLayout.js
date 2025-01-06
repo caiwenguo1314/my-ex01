@@ -26,7 +26,7 @@ const AppLayout = () => {
     <Layout style={{ minHeight: '100vh' }}>
       <Layout>
         {/* Header */}
-        <Header style={{ background: '#fff', padding: '0 16px' }}>
+        <Header style={{ background: '#fff', padding: '0 16px' ,width: '100%' }}>
           <Row justify="space-between" align="middle">
             <Col>
               <Row gutter={20} style={{ fontSize: '20px',fontWeight: 'bold' }}>
