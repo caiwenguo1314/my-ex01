@@ -63,7 +63,9 @@ const AppLayout = () => {
                 <Avatar style={{ ...commonAvatarStyle, background: index === 0 ? 'red' : '#f0f0f0' }}>{index + 1}</Avatar>
                 <div style={{ fontSize: '14px' }}>{text}</div>
               </Col>
-              {index < 3 && <div style={stepDividerStyle}></div>}
+              {index < 3 && (
+                <div style={stepDividerStyle}></div>
+              )}
             </React.Fragment> 
           ))}
         </Row>

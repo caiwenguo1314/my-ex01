@@ -40,13 +40,15 @@ const AppLayout = () => {
           </div>
           <div
             style={{
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)',
               flexGrow: 1,
               height: '1px',
               background: 'repeating-linear-gradient(90deg, #000, #000 2px, transparent 3px, transparent 5px)',
               marginTop: '20px'
-
             }}
-          ></div>
+          />
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -58,13 +60,15 @@ const AppLayout = () => {
           </div>
           <div
             style={{
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)',
               flexGrow: 1,
               height: '1px',
               background: 'repeating-linear-gradient(90deg, #000, #000 2px, transparent 3px, transparent 5px)',
               marginTop: '20px'
-
             }}
-          ></div>
+          />
           <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -76,13 +80,15 @@ const AppLayout = () => {
           </div>
           <div
             style={{
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)',
               flexGrow: 1,
               height: '1px',
               background: 'repeating-linear-gradient(90deg, #000, #000 2px, transparent 3px, transparent 5px)',
               marginTop: '20px'
-
             }}
-          ></div>
+          />
           <div style={{
             display: 'flex',
             flexDirection: 'column',
