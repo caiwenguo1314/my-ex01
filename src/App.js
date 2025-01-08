@@ -1,11 +1,12 @@
-import  AppLayout  from './Layout/AppLayout';
+import  AppLayout  from './Componets/Layout/AppLayout';
 import './App.css';
+
 
 
 function App() {
   return (
     <div className="App">
-      <AppLayout />
+      <AppLayout />       
     </div>
   );
 }
