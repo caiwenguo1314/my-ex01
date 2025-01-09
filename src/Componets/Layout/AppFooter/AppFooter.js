@@ -12,7 +12,7 @@ export default function AppFooter() {
             </Text>
 
             <Row justify="end" style={{ background: '#fff', width: 'calc(100% + 100px)', height: '80px', marginLeft: '-50px' }}>
-                <Space size="middle" style={{ marginRight: '50px' }}>
+                <Space size="middle" style={{ marginRight: '20px' }}>
                     <Button size="large" style={{ width: 200 }} type="default" danger>
                         Back
                     </Button>
