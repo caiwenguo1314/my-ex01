@@ -1,0 +1,194 @@
+# 保诚理赔表单开发指南
+
+## 当前组件结构
+```
+AppLayout
+├── AppHeader
+├── AppSteps (步骤条)
+├── AppContent1th (第一步：Life Assured)
+├── AppContent3th (第三步：Payout Details)
+└── AppFooter
+```
+
+## 需要完善的功能
+
+### 1. 路由管理
+需要使用 React Router 管理步骤切换。建议创建以下路由：
+```javascript
+const routes = [
+  { path: '/life-assured', component: AppContent1th },
+  { path: '/claim-details', component: AppContent2th },
+  { path: '/payout-details', component: AppContent3th },
+  { path: '/review', component: AppContent4th }
+];
+```
+
+### 2. 数据管理
+使用 Context 或 Redux 管理全局状态：
+```javascript
+const initialState = {
+  lifeAssured: {
+    selectedPerson: null,
+    insuranceDetails: []
+  },
+  claimDetails: {
+    // 需要补充第二步的表单数据
+  },
+  payoutDetails: {
+    accountHolder: '',
+    bankName: '',
+    accountNumber: '',
+    branchName: '',
+    branchAddress: '',
+    savingsBook: null
+  },
+  review: {
+    // 最终确认数据
+  }
+};
+```
+
+### 3. 交互逻辑
+
+#### 3.1 步骤控制
+```javascript
+function AppSteps() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const navigate = useNavigate();
+
+  const steps = [
+    { title: 'Life Assured', path: '/life-assured' },
+    { title: 'Claim Details', path: '/claim-details' },
+    { title: 'Payout Details', path: '/payout-details' },
+    { title: 'Review', path: '/review' }
+  ];
+
+  return (
+    <Steps 
+      current={currentStep}
+      onChange={(current) => {
+        setCurrentStep(current);
+        navigate(steps[current].path);
+      }}
+    />
+  );
+}
+```
+
+#### 3.2 表单验证和提交
+```javascript
+function AppContent3th() {
+  const { payoutDetails, setPayoutDetails } = useContext(FormContext);
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    try {
+      await form.validateFields();
+      setPayoutDetails(values);
+      await savePayoutDetails(values);
+      navigate('/review');
+    } catch (error) {
+      // 错误处理
+    }
+  };
+}
+```
+
+#### 3.3 数据持久化
+```javascript
+const saveProgress = async (step, data) => {
+  try {
+    await api.saveProgress({
+      step,
+      data,
+      timestamp: new Date()
+    });
+  } catch (error) {
+    // 错误处理
+  }
+};
+```
+
+#### 3.4 文件上传处理
+```javascript
+const handleUpload = async (file) => {
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const response = await api.uploadFile(formData);
+    return response.fileUrl;
+  } catch (error) {
+    // 错误处理
+  }
+};
+```
+
+## 需要新建的文件
+
+### 1. 路由配置 (src/router/index.js)
+```javascript
+import { createBrowserRouter } from 'react-router-dom';
+
+export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppLayout />,
+    children: [
+      { path: 'life-assured', element: <AppContent1th /> },
+      { path: 'claim-details', element: <AppContent2th /> },
+      { path: 'payout-details', element: <AppContent3th /> },
+      { path: 'review', element: <AppContent4th /> }
+    ]
+  }
+]);
+```
+
+### 2. 全局状态管理 (src/context/FormContext.js)
+```javascript
+export const FormContext = createContext();
+
+export function FormProvider({ children }) {
+  const [formData, setFormData] = useState(initialState);
+  
+  return (
+    <FormContext.Provider value={{ formData, setFormData }}>
+      {children}
+    </FormContext.Provider>
+  );
+}
+```
+
+### 3. API 服务 (src/services/api.js)
+```javascript
+export const api = {
+  saveProgress: (data) => axios.post('/api/progress', data),
+  uploadFile: (formData) => axios.post('/api/upload', formData),
+  submitForm: (data) => axios.post('/api/submit', data)
+};
+```
+
+## 需要安装的依赖
+```json
+{
+  "dependencies": {
+    "react-router-dom": "^6.x",
+    "axios": "^1.x",
+    "@ant-design/icons": "^5.x",
+    "antd": "^5.x"
+  }
+}
+```
+
+## 开发顺序建议
+1. 设置路由系统
+2. 实现全局状态管理
+3. 完善各个步骤的表单逻辑
+4. 添加数据持久化和文件上传功能
+
+## 注意事项
+1. 确保每个步骤的表单验证都完整
+2. 实现数据的本地存储，防止刷新丢失
+3. 添加适当的加载状态和错误处理
+4. 确保文件上传有大小和类型限制
+5. 实现表单的自动保存功能
