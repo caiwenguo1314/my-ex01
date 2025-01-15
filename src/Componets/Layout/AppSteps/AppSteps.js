@@ -4,10 +4,10 @@ import { Steps, Row } from 'antd'
 export default function AppSteps({ current = 0 }) {
     return (
         <Row justify="center" align="middle">
-            <Steps 
+            <Steps
                 current={current}
-                style={{                   
-                    margin: '24px 0',
+                style={{
+                    marginTop: '60px',
                     maxWidth: '1400px',
                     width: '100%'
                 }}
