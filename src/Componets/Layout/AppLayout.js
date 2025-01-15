@@ -17,8 +17,17 @@ import AppContent4th from "./AppContent4th/AppContent4th";
 
 const AppLayout = () => {
 
-  const [ step, setStept ] = useState(1);
-  console.log('step:', step);
+  const  [ current, setCurrent ] = useState(0);
+
+  const addClickHandler = () => {
+    setCurrent(prevCurrent => prevCurrent + 1);
+}
+
+const subClickHandler = () => {
+  setCurrent(prevCurrent => prevCurrent - 1);
+}
+  
+
   return (
     <Layout
       style={{
@@ -31,17 +40,17 @@ const AppLayout = () => {
       <AppHeader />
 
       {/* Steps */}
-      <AppSteps />
+      <AppSteps current={current} />
 
       {/* Content */}
 
-      {step === 1 && <AppContent1th />}
-      {step === 2 && <AppContent2th />}
-      {step === 3 && <AppContent3th />}
-      {step === 4 && <AppContent4th />}
+      {current === 0 && <AppContent1th />}
+      {current === 1 && <AppContent2th />}
+      {current === 2 && <AppContent3th />}
+      {current === 3 && <AppContent4th />}
 
       {/* Footer */}
-      <AppFooter />
+      <AppFooter  current={current} addClickHandler={addClickHandler} subClickHandler={subClickHandler}/>
     </Layout>
   );
 };
