@@ -1,28 +1,23 @@
 import React from "react";
 import { Steps, Row } from "antd";
 
-export default function AppSteps(props) {
-  const { current } = props;
-
-
-  return (
-    <Row justify="center" align="middle">
-      <Steps
-        style={{
-          margin: "24px 40px",
-          maxWidth: "1400px", // 限制最大宽度，使步骤条不会太宽
-          width: "100%", // 确保在最大宽度内占满空间
-        }}
-        current={current}
-        direction="horizontal"
-        labelPlacement="vertical"
-        items={[
-          { title: "Life Assured" },
-          { title: "Claim Details" },
-          { title: "Payout Details" },
-          { title: "Review" },
-        ]}
-      />
-    </Row>
-  );
+export default function AppSteps({ current = 0 }) {
+    return (
+        <Row justify="center" align="middle">
+            <Steps
+                current={current}
+                style={{
+                    marginTop: '60px',
+                    maxWidth: '1400px',
+                    width: '100%'
+                }}
+                items={[
+                    { title: 'Select Life Assured' },
+                    { title: 'Select Insurance' },
+                    { title: 'Fill Information' },
+                    { title: 'Review' },
+                ]}
+            />
+        </Row>
+    )
 }
