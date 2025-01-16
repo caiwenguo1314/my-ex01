@@ -1,12 +1,21 @@
 import React from 'react'
 import { Layout, Row, Typography, Button, Space } from 'antd';
+import { useInsurance } from '../../../context/InsuranceContext'
 
 const { Text, } = Typography;
 const { Footer } = Layout;
 export default function AppFooter() {
+
+    const { formState, setCurrent } = useInsurance()
+    const addClickHandler = () => {
+        setCurrent(formState.current + 1)
+    }
+    const subClickHandler = () => {
+        setCurrent(formState.current - 1)
+    }
     return (
-        <Footer 
-            style={{ 
+        <Footer
+            style={{
                 position: 'fixed',
                 bottom: 0,
                 left: 0,
@@ -23,10 +32,12 @@ export default function AppFooter() {
                     In case of any queries, please contact our customer relations officer at PRUDENTIAL Customerline: 150008/15008
                 </Text>
                 <Space size="middle">
-                    <Button size="large" style={{ width: 200 }} type="default" danger>
+                    <Button onClick={formState.current > 0 ? subClickHandler : null} size="large" style={{ width: 200 }} type="default" danger>
                         Back
                     </Button>
-                    <Button size="large" style={{ width: 200 }} type="primary">
+                    <Button
+                        onClick={formState.current < 3 ? addClickHandler : null}
+                        size="large" style={{ width: 200 }} type="primary">
                         Continue
                     </Button>
                 </Space>

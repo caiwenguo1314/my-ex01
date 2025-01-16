@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout } from "antd";
-import { useState } from "react";
+import { useInsurance } from '../../context/InsuranceContext'
 
 import AppHeader from "./AppHeader/AppHeader";
 import AppSteps from "./AppSteps/AppSteps";
@@ -13,9 +13,11 @@ import AppContent4th from "./AppContent4th/AppContent4th";
 const { Content } = Layout;
 
 const AppLayout = () => {
-  const [current, setCurrent] = useState(0);
-  console.log('current:', current);
 
+  const { formState } = useInsurance()
+  // console.log('formState:', formState);
+  const { current } = formState;
+  // console.log('current:', current);
   return (
     <Layout
       style={{
@@ -37,7 +39,7 @@ const AppLayout = () => {
         }}
       >
         {/* Steps */}
-        <AppSteps current={current} />
+        <AppSteps />
 
         {/* Page Content */}
         <div style={{ padding: '24px 0' }}>

@@ -1,13 +1,14 @@
-import  AppLayout  from './Componets/Layout/AppLayout';
+import AppLayout from './Componets/Layout/AppLayout';
 import './App.css';
+import { InsuranceProvider } from './context/InsuranceContext';
 
 
 
 function App() {
   return (
-    <div className="App">
-      <AppLayout />       
-    </div>
+    <InsuranceProvider>
+      <AppLayout />
+    </InsuranceProvider>
   );
 }
 
