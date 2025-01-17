@@ -29,7 +29,7 @@ const InsuranceContext = createContext(initialState);
 
 
 
-export function InsuranceContextProvider({ children }) {
+export function InsuranceProvider({ children }) {
 
     const [formState, setFormState] = useState(initialState);
 
@@ -40,10 +40,55 @@ export function InsuranceContextProvider({ children }) {
         }));
     }
 
+    const updateInsurantInfo = (info) => {
+        setFormState(prevState => ({
+            ...prevState,
+            insurantInfo: info
+        }));
+    };
+
+    const updateInsuredInfo = (info) => {
+        setFormState(preState => ({
+            ...preState,
+            insuredInfo: info
+        }));
+    };
+
+    const updatePlanInfo = (info) => {
+        setFormState(preState => ({
+            ...preState,
+            planInfo: info
+        }));
+    };
+
+    const submitInsurance = async () => {
+        try {
+            console.log('Submitting insurance data:', formState);
+            return true;
+        } catch (error) {
+            console.error('Error submitting insurance:', error);
+            return false;
+        }
+    };
 
     return (
-        <InsuranceContext.Provider value={{ formState, setFormState, setCurrent }}>
+        <InsuranceContext.Provider value={{
+            formState,
+            setCurrent,
+            updateInsurantInfo,
+            updateInsuredInfo,
+            updatePlanInfo,
+            submitInsurance
+        }}>
             {children}
         </InsuranceContext.Provider>
-    )
-}
+    );
+};
+
+export const useInsurance = () => {
+    const context = useContext(InsuranceContext);
+    if (!context) {
+        throw new Error('useInsurance must be used within an InsuranceProvider');
+    }
+    return context;
+};
