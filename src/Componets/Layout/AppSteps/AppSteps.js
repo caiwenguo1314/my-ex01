@@ -1,20 +1,24 @@
 import React from 'react'
 import { Steps, Row } from 'antd'
+import { useInsurance } from '../../../context/InsuranceContext'
 
-export default function AppSteps({ current = 0 }) {
+
+export default function AppSteps() {
+    const { formState } = useInsurance()
+    console.log('formState.current:', formState.current);
     return (
         <Row justify="center" align="middle">
             <Steps
-                current={current}
+                current={formState.current}
                 style={{
                     marginTop: '60px',
                     maxWidth: '1400px',
                     width: '100%'
                 }}
                 items={[
-                    { title: 'Select Life Assured' },
-                    { title: 'Select Insurance' },
-                    { title: 'Fill Information' },
+                    { title: 'Life assured' },
+                    { title: 'Claim details' },
+                    { title: 'Payout details' },
                     { title: 'Review' },
                 ]}
             />

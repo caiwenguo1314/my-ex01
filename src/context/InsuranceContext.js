@@ -3,25 +3,11 @@ import React, { createContext, useContext, useState } from 'react';
 
 // 创建初始状态
 const initialState = {
-    current: 0, // 当前步骤，初始为0
-    insurantInfo: {
+    current: 0,
+    lifeAssured: {
         name: '',
-        idNumber: '',
-        phone: '',
-
+        idx: '',
     },
-    insuredInfo: {
-        name: '',
-        idNumber: '',
-        relationship: '',
-
-    },
-    planInfo: {
-        planType: '',
-        coverage: '',
-        period: '',
-
-    }
 };
 
 
@@ -40,26 +26,14 @@ export function InsuranceProvider({ children }) {
         }));
     }
 
-    const updateInsurantInfo = (info) => {
+    const lifeAssured = (info) => {
         setFormState(prevState => ({
             ...prevState,
-            insurantInfo: info
+            lifeAssured: info
         }));
     };
 
-    const updateInsuredInfo = (info) => {
-        setFormState(preState => ({
-            ...preState,
-            insuredInfo: info
-        }));
-    };
-
-    const updatePlanInfo = (info) => {
-        setFormState(preState => ({
-            ...preState,
-            planInfo: info
-        }));
-    };
+   
 
     const submitInsurance = async () => {
         try {
@@ -75,9 +49,7 @@ export function InsuranceProvider({ children }) {
         <InsuranceContext.Provider value={{
             formState,
             setCurrent,
-            updateInsurantInfo,
-            updateInsuredInfo,
-            updatePlanInfo,
+            lifeAssured,            
             submitInsurance
         }}>
             {children}

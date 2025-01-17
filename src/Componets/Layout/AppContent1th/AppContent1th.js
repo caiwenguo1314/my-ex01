@@ -1,20 +1,23 @@
 import React from 'react'
 import { Layout, Row, Col, Radio, Card, Typography, Space } from 'antd';
 import { useState } from 'react';
-
+import { useInsurance } from '../../../context/InsuranceContext';
 
 const { Title, Text, Paragraph } = Typography;
 
 const { Content, } = Layout;
 
+
 export default function AppContent1th() {
+    const { lifeAssured } = useInsurance();
     const nameData = [
         { name: "Jay Wong", inx: "1" },
         { name: "Lane Lou", inx: "2" },
         { name: "Stallia Wong Yanghe", inx: "3" },]
 
     const [selectedValues, setSelectedValues] = useState([]);
-
+    console.log('nameData:', nameData[selectedValues]);
+    // lifeAssured(nameData[selectedValues]);
     const handleRadioChange = (value) => {
         setSelectedValues((prev) => {
             if (prev.includes(value)) {
@@ -25,6 +28,8 @@ export default function AppContent1th() {
                 return [...prev, value];
             }
         });
+
+
     };
     return (
         <Content style={{ padding: '0 24px', width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
