@@ -9,8 +9,6 @@ const { Content } = Layout;
 
 export default function AppContent1th() {
     const {
-        updateLifeAssured,
-        formState,
         nameData,
         selectedValues,
         handleRadioChange,

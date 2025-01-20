@@ -9,9 +9,21 @@ export default function AppFooter() {
     formState,
     addClickHandler,
     subClickHandler,
+    form,
   } = useInsurance();
 
-
+  const clickHandler = () => {
+    if (formState.lifeAssured.length === 0) {
+      alert("Please select Life Assured");
+      return;
+    }
+    if (formState.current < 3) {
+      addClickHandler();
+    }   
+    if (formState.current === 2) {
+      form.submit();
+    }
+  }
 
   return (
     <Footer
@@ -42,14 +54,25 @@ export default function AppFooter() {
           >
             Back
           </Button>
-          <Button
-            onClick={formState.current < 3 ? addClickHandler : null}
+          {formState.current === 3 ? (
+            <Button
+              onClick={null}
+              size="large"
+              style={{ width: 200 }}
+              type="primary"
+            >
+              Submit
+            </Button>
+          ) : <Button
+            onClick={formState.lifeAssured ? clickHandler : null}
             size="large"
             style={{ width: 200 }}
             type="primary"
           >
             Continue
           </Button>
+          }
+
         </Space>
       </Row>
     </Footer>

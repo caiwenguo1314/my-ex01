@@ -10,6 +10,7 @@ import {
   Row,
 } from "antd";
 import { CreditCardOutlined } from "@ant-design/icons";
+import { useInsurance } from "../../../context/InsuranceContext";
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -28,19 +29,25 @@ const commonInputStyle = {
 };
 
 export default function AppContent3th() {
-  const [form] = Form.useForm();
-  console.log("form", form);
+  const { form, onFinish, normFile, setIsFormValid } = useInsurance();
+  // console.log("form", form);
+  // 用来控制提交按钮的启用与禁用
 
-  const onFinish = (values) => {
-    console.log("Form values:", values);
-  };
+  // 监听表单字段变化
+  const handleValuesChange = (changedValues, allValues) => {
+    // 获取所有的必填项字段值
+    const { accountHolder, bankName, accountNumber, agreement } = allValues;
 
-  const normFile = (e) => {
-    if (Array.isArray(e)) {
-      return e;
+    // 判断是否所有必填字段都有值
+    if (accountHolder && bankName && accountNumber && agreement) {
+      setIsFormValid(true); // 所有必填项填写了，启用提交按钮
+    } else {
+      setIsFormValid(false); // 有未填写的必填项，禁用提交按钮
     }
-    return e?.fileList;
   };
+
+
+
 
   return (
     <Content
@@ -74,6 +81,7 @@ export default function AppContent3th() {
           form={form}
           layout="horizontal"
           onFinish={onFinish}
+          onValuesChange={handleValuesChange}
           requiredMark
           style={{ width: "100%", borderTop: "1px solid rgba(0, 0, 0, 0.06)" }}
         >
@@ -170,7 +178,7 @@ export default function AppContent3th() {
               </Space>
             </Upload>
           </Form.Item>
-          
+
           {/* Checkbox */}
           <Form.Item
             name="agreement"
