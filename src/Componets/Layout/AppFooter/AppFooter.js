@@ -65,6 +65,7 @@ export default function AppFooter() {
             </Button>
           ) : <Button
             onClick={formState.lifeAssured ? clickHandler : null}
+            disabled={!formState.isFormValid}
             size="large"
             style={{ width: 200 }}
             type="primary"

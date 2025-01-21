@@ -49,6 +49,17 @@ export function InsuranceProvider({ children }) {
             isFormValid: bool,
         }));
     };
+    const handleValuesChange = (changedValues, allValues) => {
+        // 获取所有的必填项字段值
+        const { accountHolder, bankName, accountNumber, agreement } = allValues;
+
+        // 判断是否所有必填字段都有值
+        if (accountHolder && bankName && accountNumber && agreement) {
+            setIsFormValid(true); // 所有必填项填写了，启用提交按钮
+        } else {
+            setIsFormValid(false); // 有未填写的必填项，禁用提交按钮
+        }
+    };
     const updateLifeAssured = (info) => {
         setFormState((prevState) => ({
             ...prevState,
@@ -82,7 +93,7 @@ export function InsuranceProvider({ children }) {
     };
     //获得3th里获取表单数据
     const [form] = Form.useForm();
-    const onFinish = (values) => {        
+    const onFinish = (values) => {
         updatePayoutFormValues(values);
     };
     console.log('formState.payoutFormValues:', formState.payoutFormValues);
@@ -108,7 +119,8 @@ export function InsuranceProvider({ children }) {
                 subClickHandler,
                 form,
                 onFinish,
-                normFile
+                normFile,                
+                handleValuesChange
             }}
         >
             {children}

@@ -29,25 +29,7 @@ const commonInputStyle = {
 };
 
 export default function AppContent3th() {
-  const { form, onFinish, normFile, setIsFormValid } = useInsurance();
-  // console.log("form", form);
-  // 用来控制提交按钮的启用与禁用
-
-  // 监听表单字段变化
-  const handleValuesChange = (changedValues, allValues) => {
-    // 获取所有的必填项字段值
-    const { accountHolder, bankName, accountNumber, agreement } = allValues;
-
-    // 判断是否所有必填字段都有值
-    if (accountHolder && bankName && accountNumber && agreement) {
-      setIsFormValid(true); // 所有必填项填写了，启用提交按钮
-    } else {
-      setIsFormValid(false); // 有未填写的必填项，禁用提交按钮
-    }
-  };
-
-
-
+  const { form, onFinish, normFile, handleValuesChange } = useInsurance();
 
   return (
     <Content
@@ -83,7 +65,10 @@ export default function AppContent3th() {
           onFinish={onFinish}
           onValuesChange={handleValuesChange}
           requiredMark
-          style={{ width: "100%", borderTop: "1px solid rgba(0, 0, 0, 0.06)" }}
+          style={{
+            width: "100%",
+            borderTop: "1px solid rgba(0, 0, 0, 0.06)",
+          }}
         >
           <Row justify="space-between">
             <Form.Item
@@ -94,6 +79,10 @@ export default function AppContent3th() {
               tooltip="This is a required field"
               rules={[
                 { required: true, message: "Please enter account holder name" },
+                {
+                  pattern: /^[A-Za-z\s]{2,50}$/,
+                  message: "Name should only contain letters and spaces, 2-50 characters"
+                },
               ]}
             >
               <Input
@@ -107,7 +96,13 @@ export default function AppContent3th() {
               label="Bank name"
               name="bankName"
               required
-              rules={[{ required: true, message: "Please enter bank name" }]}
+              rules={[
+                { required: true, message: "Please enter bank name" },
+                {
+                  pattern: /^[A-Za-z\s]{2,50}$/,
+                  message: "Bank name should only contain letters and spaces",
+                },
+              ]}
             >
               <Input placeholder="Enter bank name" style={commonInputStyle} />
             </Form.Item>
@@ -120,6 +115,10 @@ export default function AppContent3th() {
               required
               rules={[
                 { required: true, message: "Please enter bank account number" },
+                {
+                  pattern: /^\d{10,20}$/,
+                  message: "Account number should be 10-20 digits"
+                }
               ]}
             >
               <Input
@@ -132,6 +131,12 @@ export default function AppContent3th() {
               {...commonFormItemStyle}
               label="Branch name"
               name="branchName"
+              rules={[
+                {
+                  pattern: /^[A-Za-z0-9\s]{2,50}$/,
+                  message: "Branch name should contain only letters, numbers and spaces"
+                }
+              ]}
             >
               <Input placeholder="Enter branch name" style={commonInputStyle} />
             </Form.Item>
@@ -141,6 +146,12 @@ export default function AppContent3th() {
               {...commonFormItemStyle}
               label="Branch address"
               name="branchAddress"
+              rules={[
+                {
+                  pattern: /^[A-Za-z0-9\s,.-]{5,100}$/,
+                  message: "Please enter a valid address"
+                }
+              ]}
             >
               <Input
                 placeholder="Enter branch address"
@@ -200,6 +211,6 @@ export default function AppContent3th() {
           </Form.Item>
         </Form>
       </Space>
-    </Content>
+    </Content >
   );
 }
