@@ -19,11 +19,19 @@ export default function AppFooter() {
     }
     if (formState.current < 3) {
       addClickHandler();
-    }   
+    }
     if (formState.current === 2) {
       form.submit();
     }
   }
+  const disabled = () => {
+    if (formState.current === 2) {
+      return !formState.isFormValid;
+    } else {
+      return false;
+    }
+
+  };
 
   return (
     <Footer
@@ -65,7 +73,7 @@ export default function AppFooter() {
             </Button>
           ) : <Button
             onClick={formState.lifeAssured ? clickHandler : null}
-            disabled={!formState.isFormValid}
+            disabled={disabled()}
             size="large"
             style={{ width: 200 }}
             type="primary"
