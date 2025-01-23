@@ -1,0 +1,21 @@
+/* 设置.content-container的滚动条样式 */
+.content-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* 设置.content-container的滚动条轨道样式 */
+.content-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 8px;
+}
+
+/* 设置.content-container的滚动条滑块样式 */
+.content-container::-webkit-scrollbar-thumb {
+  background: #d9d9d9;
+  border-radius: 8px;
+}
+
+/* 设置.content-container的滚动条滑块悬停样式 */
+.content-container::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}

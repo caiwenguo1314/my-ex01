@@ -1,57 +1,71 @@
 import React from "react";
 import { Layout } from "antd";
 import { useInsurance } from '../../context/InsuranceContext'
+import { VisualContainer, ScrollContainer, ContentWrapper } from './ContentContainer';
+import ContentSwitch from './ContentSwitch';
 
 import AppHeader from "./AppHeader/AppHeader";
 import AppSteps from "./AppSteps/AppSteps";
 import AppFooter from "./AppFooter/AppFooter";
-import AppContent1th from "./AppContent1th/AppContent1th";
-import AppContent2th from "./AppContent2th/AppContent2th";
-import AppContent3th from "./AppContent3th/AppContent3th";
-import AppContent4th from "./AppContent4th/AppContent4th";
 
 const { Content } = Layout;
 
 const AppLayout = () => {
-
   const { formState } = useInsurance()
-  // console.log('formState:', formState);
   const { current } = formState;
-  // console.log('current:', current);
+
   return (
     <Layout
       style={{
         minHeight: "100vh",
         maxWidth: "100vw",
+        '--header-height': '64px',
+        '--steps-height': '84px',
+        '--footer-height': '80px',
+        '--content-padding': '20px',
+        '--content-max-width': '1200px'
       }}
     >
       {/* Header */}
       <AppHeader />
 
+      {/* Steps - 固定在Header下方 */}
+      <div style={{
+        position: 'fixed',
+        top: 'var(--header-height)',
+        left: 0,
+        right: 0,
+        height: 'var(--steps-height)',
+        background: 'rgb(245, 245, 245)',
+        zIndex: 100,
+      }}>
+        <AppSteps />
+      </div>
+
       {/* Main Content Area */}
       <Content
         style={{
-          marginTop: '64px',    // Header height
-          marginBottom: '80px', // Footer height
-          minHeight: 'calc(100vh - 144px)', // viewport height - (header + footer)
-          padding: '0 20px',
-          position: 'relative'
+          marginTop: 'calc(var(--header-height) + var(--steps-height))',
+          marginBottom: 'var(--footer-height)',
+          padding: '0 var(--content-padding)',
+          position: 'relative',
+          maxWidth: 'var(--content-max-width)',
+          margin: '0 auto',
+          width: '100%',
+          height: 'calc(100vh - var(--header-height) - var(--steps-height) - var(--footer-height))'
         }}
       >
-        {/* Steps */}
-        <AppSteps />
-
-        {/* Page Content */}
-        <div style={{ padding: '24px 0' }}>
-          {current === 0 && <AppContent1th />}
-          {current === 1 && <AppContent2th />}
-          {current === 2 && <AppContent3th />}
-          {current === 3 && <AppContent4th />}
-        </div>
+        <VisualContainer>
+          <ScrollContainer>
+            <ContentWrapper>
+              <ContentSwitch current={current} />
+            </ContentWrapper>
+          </ScrollContainer>
+        </VisualContainer>
       </Content>
 
       {/* Footer */}
-      <AppFooter  current={current} />
+      <AppFooter current={current} />
     </Layout>
   );
 };
