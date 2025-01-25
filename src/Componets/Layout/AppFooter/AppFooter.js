@@ -1,9 +1,11 @@
 import { React, } from "react";
 import { Layout, Row, Typography, Button, Space } from "antd";
 import { useInsurance } from "../../../context/InsuranceContext";
+import './AppFooter.css';
 
 const { Text } = Typography;
 const { Footer } = Layout;
+
 export default function AppFooter() {
   const {
     formState,
@@ -23,40 +25,32 @@ export default function AppFooter() {
     if (formState.current === 2) {
       form.submit();
     }
-  }
+  };
+
   const disabled = () => {
     if (formState.current === 2) {
       return !formState.isFormValid;
     } else {
       return false;
     }
-
   };
 
+  const footerText = "In case of any queries, please contact our customer relations officer at PRUDENTIAL Customerline: 150008/15008";
+
   return (
-    <Footer
-      style={{
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        width: "100%",
-        padding: "16px 20px",
-        background: "#fff",
-        height: "80px",
-        boxShadow: "0 -2px 8px rgba(0, 0, 0, 0.06)",
-        zIndex: 1000,
-      }}
-    >
-      <Row justify="space-between" align="middle" style={{ height: "100%" }}>
-        <Text>
-          In case of any queries, please contact our customer relations officer
-          at PRUDENTIAL Customerline: 150008/15008
+    <Footer className="app-footer">
+      <Row className="footer-row">
+        <Text 
+          className="footer-text"
+          data-full-text={footerText}
+        >
+          {footerText}
         </Text>
-        <Space size="middle">
+        <Space className="footer-buttons">
           <Button
             onClick={formState.current > 0 ? subClickHandler : null}
             size="large"
-            style={{ width: 200 }}
+            className="footer-button"
             type="default"
             danger
           >
@@ -66,22 +60,22 @@ export default function AppFooter() {
             <Button
               onClick={null}
               size="large"
-              style={{ width: 200 }}
+              className="footer-button"
               type="primary"
             >
               Submit
             </Button>
-          ) : <Button
-            onClick={formState.lifeAssured ? clickHandler : null}
-            disabled={disabled()}
-            size="large"
-            style={{ width: 200 }}
-            type="primary"
-          >
-            Continue
-          </Button>
-          }
-
+          ) : (
+            <Button
+              onClick={formState.lifeAssured ? clickHandler : null}
+              disabled={disabled()}
+              size="large"
+              className="footer-button"
+              type="primary"
+            >
+              Continue
+            </Button>
+          )}
         </Space>
       </Row>
     </Footer>

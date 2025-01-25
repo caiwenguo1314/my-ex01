@@ -1,6 +1,8 @@
-import React from 'react';
-import { Row, Col, Input, Menu, Space, Typography, Layout } from 'antd';
+import React, { useState } from 'react';
+import { Row, Col, Input, Menu, Space, Typography, Layout, Button, Drawer } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
+import { MenuOutlined } from '@ant-design/icons';
+import './AppHeader.css';
 
 const IconFont = createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/c/font_4798402_1kd47iq67va.js',
@@ -10,6 +12,8 @@ const { Header } = Layout;
 const { Text } = Typography;
 
 export default function AppHeader() {
+    const [drawerVisible, setDrawerVisible] = useState(false);
+
     const menuItems = [
         { key: 'home', label: 'Home' },
         { key: 'payment', label: 'Payment' },
@@ -17,57 +21,48 @@ export default function AppHeader() {
         { key: 'investments', label: 'Investments' },
         { key: 'documents', label: 'Documents' },
     ];
-    
+
     return (
-        <Header 
-            style={{ 
-                background: '#fff',
-                padding: '0 16px',
-                width: '100%',
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                zIndex: 1000,
-                height: '64px',
-                lineHeight: '64px',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)'
-            }}
-        >
-            <Row justify="space-between" align="middle">
-                <Col>
-                    <Space size={10}>
-                        <Text strong style={{ color: 'red', fontSize: '22px' }}>
-                            PRUDENTIAL
-                        </Text>
-                        <Menu
-                            mode="horizontal"
-                            items={menuItems}
-                            style={{
-                                fontSize: '18px',
-                                fontWeight: 'bold',
-                                textOverflow: 'ellipsis',
-                                whiteSpace: 'nowrap',
-                                width: '600px',
-                                border: 'none'
-                            }}
-                        />
-                    </Space>
-                </Col>
-                <Col>
-                    <Space>
-                        <IconFont type="icon-shezhi" style={{ fontSize: '20px', color: '#000' }} />
-                        <Input
-                            style={{
-                                width: '100px',
-                                height: '40px',
-                                background: 'rgba(204, 204, 204, 0.5)',
-                                color: '#000',
-                            }}
-                            placeholder="My Profile"
-                        />
-                    </Space>
-                </Col>
-            </Row>
+        <Header className="app-header">
+            <div className="header-content">
+                <div className="header-left">
+                    <Text strong className="logo">
+                        PRUDENTIAL
+                    </Text>
+                    <Menu
+                        mode="horizontal"
+                        items={menuItems}
+                        className="header-menu desktop-menu"
+                        selectedKeys={['home']}
+                    />
+                </div>
+                <div className="header-right">
+                    <IconFont type="icon-shezhi" style={{ fontSize: '20px' }} />
+                    <Input
+                        className="profile-input"
+                        placeholder="My Profile"
+                    />
+                    <Button
+                        className="menu-button"
+                        icon={<MenuOutlined style={{ fontSize: '20px' }} />}
+                        onClick={() => setDrawerVisible(true)}
+                    />
+                </div>
+            </div>
+            <Drawer
+                placement="right"
+                onClose={() => setDrawerVisible(false)}
+                open={drawerVisible}
+                className="mobile-menu-drawer"
+                width={280}
+            >
+                <Menu
+                    mode="vertical"
+                    items={menuItems}
+                    className="mobile-menu"
+                    selectedKeys={['home']}
+                />
+            </Drawer>
         </Header>
     );
 }

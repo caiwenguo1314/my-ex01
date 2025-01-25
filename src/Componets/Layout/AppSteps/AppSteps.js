@@ -1,27 +1,24 @@
 import React from 'react'
-import { Steps, Row } from 'antd'
+import { Steps } from 'antd'
 import { useInsurance } from '../../../context/InsuranceContext'
-
+import './AppSteps.css'
 
 export default function AppSteps() {
     const { formState } = useInsurance()
-    // console.log('formState.current:', formState.current);
     return (
-        <Row justify="center" align="middle" style={{ height: '100%' }}>
+        <div className="steps-container">
             <Steps
                 current={formState.current}
-                style={{
-                    maxWidth: '1400px',
-                    width: '100%',
-                    padding: '0 20px'
-                }}
+                className="app-steps"
+                direction="horizontal"
+                labelPlacement="vertical"
                 items={[
                     { title: 'Life assured' },
                     { title: 'Claim details' },
                     { title: 'Payout details' },
-                    { title: 'Review' },
+                    { title: 'Review' }
                 ]}
             />
-        </Row>
+        </div>
     )
 }

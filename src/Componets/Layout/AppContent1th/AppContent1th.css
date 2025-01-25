@@ -1,0 +1,32 @@
+.policy-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.policy-info {
+  margin-top: 16px;
+  margin-left: 32px;
+}
+
+.policy-item {
+  margin-bottom: 8px;
+  color: #666;
+  min-width: 200px;
+}
+
+.policy-item-code {
+  color: #999;
+  margin-left: 8px;
+  font-size: 13px;
+}
+
+@media screen and (max-width: 768px) {
+  .policy-info {
+    margin-left: 24px;
+  }
+  
+  .policy-item {
+    min-width: 100%;
+  }
+}

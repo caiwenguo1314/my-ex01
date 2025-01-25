@@ -1,0 +1,104 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #fff;
+  height: var(--header-height);
+  line-height: var(--header-height);
+  padding: 0;
+  width: 100vw;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header-content {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  font-size: 22px;
+  color: #ff4d4f;
+  white-space: nowrap;
+}
+
+.header-menu {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  background: transparent;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-input {
+  width: 120px;
+  transition: width 0.3s;
+  height: 40px;
+  border-radius: 20px;
+  background: rgba(204, 204, 204, 0.15);
+}
+
+.profile-input:hover,
+.profile-input:focus {
+  width: 160px;
+}
+
+.menu-button {
+  display: none;
+}
+
+.mobile-menu {
+  border: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header-content {
+    padding: 0 var(--content-padding-mobile);
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .desktop-menu {
+    display: none;
+  }
+
+  .menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+  }
+
+  .profile-input {
+    width: 100px;
+  }
+
+  .profile-input:hover,
+  .profile-input:focus {
+    width: 120px;
+  }
+}

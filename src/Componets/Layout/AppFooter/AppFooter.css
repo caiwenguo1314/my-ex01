@@ -1,0 +1,111 @@
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #fff;
+  height: var(--footer-height);
+  padding: 0 var(--content-padding);
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+}
+
+.footer-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 100% !important;
+  padding: 0 !important;
+}
+
+.footer-text {
+  position: relative !important;
+  flex: 1 !important;
+  max-width: 60%;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  line-height: 1.5;
+  padding-right: 16px;
+}
+
+.footer-text:hover::after {
+  content: attr(data-full-text);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background: #fff;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+  width: max-content;
+  max-width: 300px;
+  font-size: 14px;
+  line-height: 1.5;
+  z-index: 1001;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.footer-buttons {
+  display: flex !important;
+  gap: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+.footer-button {
+  min-width: 120px !important;
+  height: 40px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  border-radius: 4px !important;
+}
+
+.footer-button[type="default"] {
+  background: #fff !important;
+  color: #ff4d4f !important;
+  border-color: #ff4d4f !important;
+}
+
+.footer-button[type="default"]:hover {
+  color: #ff7875 !important;
+  border-color: #ff7875 !important;
+  background: #fff1f0 !important;
+}
+
+.footer-button[type="primary"] {
+  background: #1890ff !important;
+  border: none !important;
+}
+
+.footer-button[type="primary"]:hover {
+  background: #40a9ff !important;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-text {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    padding-right: 12px !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .footer-text:hover::after {
+    font-size: 12px !important;
+    max-width: 280px !important;
+  }
+
+  .footer-buttons {
+    gap: 8px !important;
+  }
+
+  .footer-button {
+    min-width: 90px !important;
+    height: 36px !important;
+    font-size: 14px !important;
+    padding: 0 12px !important;
+  }
+}

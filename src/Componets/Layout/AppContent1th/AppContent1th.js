@@ -1,62 +1,47 @@
 import React from "react";
-import { Layout, Row, Col, Radio, Card, Typography, Space } from "antd";
-import { useState } from "react";
+import { Layout, Card, Space, Radio, Typography } from "antd";
 import { useInsurance } from "../../../context/InsuranceContext";
 
-const { Title, Text, Paragraph } = Typography;
-
 const { Content } = Layout;
+const { Text, Title } = Typography;
 
 export default function AppContent1th() {
-    const {
-        nameData,
-        selectedValues,
-        handleRadioChange,
-    } = useInsurance();
-    //   console.log("selectedValues:", selectedValues);
+  const { nameData, selectedValues, handleRadioChange } = useInsurance();
 
-    //   console.log("lifeAssured:", formState.lifeAssured);
-
-    return (
-        <Content
-            style={{
-                padding: "0 24px",
-                width: "100%",
-                maxWidth: "100%",
-                overflow: "hidden",
-            }}
-        >
-            <Space direction="vertical" size="large" style={{ display: "flex" }}>
-                <div>
-                    <Title level={2}>Select Life Assured</Title>
-                    <Paragraph>
-                        Please select 1 life assured for this medical claim
-                    </Paragraph>
-                </div>
-                <Space direction="vertical" size="large" style={{ width: "100%" }}>
-                    {nameData.map((name, idx) => (
-                        <Card key={idx} style={{ borderRadius: 30 }}>
-                            <Radio
-                                value={idx}
-                                onClick={() => handleRadioChange(idx)}
-                                checked={selectedValues.includes(idx)}
-                                style={{ fontSize: 24, fontWeight: "bold" }}
-                            >
-                                {name.name}
-                            </Radio>
-                            <Row justify="space-between" style={{ marginTop: 40 }}>
-                                {["A", "B", "C"].map((suffix, i) => (
-                                    <Col key={i} span={8}>
-                                        <Text strong>Piece of Cake Term Insurance {suffix}</Text>
-                                        <br />
-                                        <Text strong>P30000000421</Text>
-                                    </Col>
-                                ))}
-                            </Row>
-                        </Card>
-                    ))}
+  return (
+    <div className="content-wrapper">
+      <Space direction="vertical" size="large" style={{ width: "100%" }}>
+        <div>
+          <Title level={2}>Select Life Assured</Title>
+          <Text>
+            Please select 1 life assured for this medical claim
+          </Text>
+        </div>
+        <Space direction="vertical" size="large" style={{ width: "100%" }}>
+          {nameData.map((name, idx) => (
+            <Card key={idx}>
+              <Radio
+                value={idx}
+                onClick={() => handleRadioChange(idx)}
+                checked={selectedValues.includes(idx)}
+              >
+                <Text strong style={{ fontSize: 20 }}>{name.name}</Text>
+              </Radio>
+              <div className="policy-info">
+                <Space wrap size={[32, 16]}>
+                  {["A", "B", "C"].map((suffix, i) => (
+                    <div key={i} className="policy-item">
+                      <Text>Piece of Cake Term Insurance {suffix}</Text>
+                      <br />
+                      <Text type="secondary">P30000000421</Text>
+                    </div>
+                  ))}
                 </Space>
-            </Space>
-        </Content>
-    );
+              </div>
+            </Card>
+          ))}
+        </Space>
+      </Space>
+    </div>
+  );
 }
